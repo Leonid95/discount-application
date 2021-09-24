@@ -96,9 +96,12 @@
 				    <form:label path="category">Discount category: </form:label>
 				    
 					<form:select path="category">
+					
 						<c:forEach var="category" items="${categories}">
+						<c:set var="isSelected"
+							value="${category.id == discount.category.id ? 'selected' : ''}" />
 							<form:option value="${category.id}"
-								title="${category.description}">${category.title}</form:option>
+								title="${category.description}" selected="${isSelected}">${category.title}</form:option>
 						</c:forEach>
 					</form:select>
 				</div>

@@ -218,3 +218,13 @@ footer {
     padding: 8px 17px;
     border-radius: 23px;
 }
+
+#removeFilter {
+    display: block;
+    width: fit-content;
+    width: -moz-fit-content;
+    width: -webkit-fit-content;
+    margin-top: 11px;
+    margin-left: auto;
+    margin-right: auto;
+}

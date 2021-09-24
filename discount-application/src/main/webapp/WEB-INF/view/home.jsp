@@ -17,27 +17,39 @@
 
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
 
 <body>
 
-<%@ include file="header-general.jsp"%>
+	<%@ include file="header-general.jsp"%>
 
 	<div class="container main-content">
 		<div class="content-section">
 			<div class="custom-content-navigation">
-			    <div class="filter-title">Filter discounts by
-					category</div>
+				<div class="filter-title">Filter discounts by category</div>
+
+
+
 				<select id="selectCategory">
 					<c:forEach var="category" items="${categories}">
-						<option value="${category.id}" title="${category.description}">
-							${category.title}</option>
+						<c:set var="isSelected"
+							value="${(not empty param.categoryId and param.categoryId == category.id) ? 'selected' : ''}" />
+
+
+						<option value="${category.id}" title="${category.description}"
+							${isSelected}>${category.title}</option>
+
 					</c:forEach>
 				</select> <a id="filterLink" class="filterButton"
 					href="${pageContext.request.contextPath}">Apply</a>
+
+				<c:if test="${not empty param.categoryId}">
+					<a id="removeFilter" class="filterButton"
+						href="${pageContext.request.contextPath}">Remove filters</a>
+				</c:if>
 			</div>
 
 
@@ -48,21 +60,26 @@
 
 					<div class="font-cursive object-container discount-container">
 
-						<div class="object-field discount-field"><strong>${discount.title}</strong></div>
-						<div class="object-field discount-field"><strong>${discount.description}</strong></div>
-						<div class="object-field discount-field">Discount price:
-							<strong>${discount.discountPrice} PLN</strong></div>
-						<div class="object-field discount-field">Regular price:
-							<strong>${discount.regularPrice} PLN</strong></div>
 						<div class="object-field discount-field">
-							Discount is valid since
-							<strong><fmt:formatDate value="${discount.startDate}"
-								pattern="dd-MM-yyyy" /></strong>
-							till
-							<strong><fmt:formatDate value="${discount.endDate}" pattern="dd-MM-yyyy" /></strong>
+							<strong>${discount.title}</strong>
 						</div>
-						<div class="object-field discount-field" >Discount category:
-							<strong>${discount.category.title}</strong></div>
+						<div class="object-field discount-field">
+							<strong>${discount.description}</strong>
+						</div>
+						<div class="object-field discount-field">
+							Discount price: <strong>${discount.discountPrice} PLN</strong>
+						</div>
+						<div class="object-field discount-field">
+							Regular price: <strong>${discount.regularPrice} PLN</strong>
+						</div>
+						<div class="object-field discount-field">
+							Discount is valid since <strong><fmt:formatDate
+									value="${discount.startDate}" pattern="dd-MM-yyyy" /></strong> till <strong><fmt:formatDate
+									value="${discount.endDate}" pattern="dd-MM-yyyy" /></strong>
+						</div>
+						<div class="object-field discount-field">
+							Discount category: <strong>${discount.category.title}</strong>
+						</div>
 					</div>
 
 					<br>

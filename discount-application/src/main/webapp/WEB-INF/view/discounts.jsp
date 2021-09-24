@@ -42,19 +42,28 @@
 				<div class="filter-title">Filter discounts by category</div>
 				<select id="selectCategory">
 					<c:forEach var="category" items="${categories}">
-						<option value="${category.id}" title="${category.description}">
-							${category.title}</option>
+						<c:set var="isSelected"
+							value="${(not empty param.categoryId and param.categoryId == category.id) ? 'selected' : ''}" />
+
+
+						<option value="${category.id}" title="${category.description}"
+							${isSelected}>${category.title}</option>
 					</c:forEach>
 				</select>
 
-				<c:if test="${isUserAdmin}">
-					<a id="filterLink" class="filterButton"
-						href="${pageContext.request.contextPath}/admin/discount-list">Apply</a>
+				<c:set var="userPath" value="${isUserAdmin ? '/admin' : '/client'}" />
+
+				<a id="filterLink" class="filterButton"
+					href="${pageContext.request.contextPath}${userPath}/discount-list">Apply</a>
+				<c:if test="${not empty param.categoryId}">
+					<a id="removeFilter" class="filterButton"
+						href="${pageContext.request.contextPath}${userPath}/discount-list">Remove
+						filters</a>
 				</c:if>
-				<c:if test="${not isUserAdmin}">
-					<a id="filterLink" class="filterButton"
-						href="${pageContext.request.contextPath}/client/discount-list">Apply</a>
-				</c:if>
+
+
+
+
 			</div>
 
 			<a class="add-button"
@@ -65,15 +74,28 @@
 			<c:forEach var="discount" items="${discounts}">
 
 				<div class="object-container discount-container">
-					<div class="object-field discount-field">Title: <strong>${discount.title}</strong></div>
-					<div class="object-field discount-field">Description: <strong>${discount.description}</strong></div>
-					<div class="object-field discount-field">Discount price: <strong>${discount.discountPrice}</strong> PLN</div>
-					<div class="object-field discount-field">Regular price: <strong>${discount.regularPrice}</strong> PLN</div>
-					<div class="object-field discount-field">Discount is valid since <fmt:formatDate
-							value="${discount.startDate}" pattern="dd-MM-yyyy" /> till <fmt:formatDate
-							value="${discount.endDate}" pattern="dd-MM-yyyy" /></div>
-					<div class="object-field discount-field">Discount category: ${discount.category.title}</div>
-					<div class="object-field discount-field">Discount is visible: ${discount.status}</div>
+					<div class="object-field discount-field">
+						Title: <strong>${discount.title}</strong>
+					</div>
+					<div class="object-field discount-field">
+						Description: <strong>${discount.description}</strong>
+					</div>
+					<div class="object-field discount-field">
+						Discount price: <strong>${discount.discountPrice}</strong> PLN
+					</div>
+					<div class="object-field discount-field">
+						Regular price: <strong>${discount.regularPrice}</strong> PLN
+					</div>
+					<div class="object-field discount-field">
+						Discount is valid since
+						<fmt:formatDate value="${discount.startDate}" pattern="dd-MM-yyyy" />
+						till
+						<fmt:formatDate value="${discount.endDate}" pattern="dd-MM-yyyy" />
+					</div>
+					<div class="object-field discount-field">Discount category:
+						${discount.category.title}</div>
+					<div class="object-field discount-field">Discount is visible:
+						${discount.status}</div>
 
 					<c:url var="updateLink" value="/update-discount">
 						<c:param name="discountId" value="${discount.id}" />
@@ -84,13 +106,14 @@
 					</c:url>
 
 					<div>
-						<a href="${updateLink}" class="custom-button update-button">Update discount</a>
+						<a href="${updateLink}" class="custom-button update-button">Update
+							discount</a>
 					</div>
 
 					<div>
 						<a href="${deleteLink}"
-							onclick="if(!confirm('Are you sure you want to delete this discount?')) return false;" class="custom-button delete-button">Delete
-							discount</a>
+							onclick="if(!confirm('Are you sure you want to delete this discount?')) return false;"
+							class="custom-button delete-button">Delete discount</a>
 					</div>
 				</div>
 
