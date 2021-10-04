@@ -61,7 +61,7 @@ public class DiscountController {
 		
 		// If the discount was not created by the user and the user is not an administrator, 
 		// then operation must be forbidden	
-		if(currentUser.getId() != theDiscount.getUserId() && currentUser.getRoleId() != 1) {
+		if(currentUser.getId() != theDiscount.getUserId() && currentUser.getRole().getName() != "administrator") {
 			return "forbidden";
 		}
 
@@ -103,7 +103,7 @@ public class DiscountController {
 		// If the user is administrator then it must be redirected to the
 		// administrator's discount view.
 		// Otherwise it must be redirected to the client's discount view.
-		if (currentUser.getRoleId() == 1) {
+		if (currentUser.getRole().getName() == "administrator") {
 			return "redirect:/admin/discount-list";
 		} else {
 			return "redirect:/client/discount-list";
@@ -119,7 +119,7 @@ public class DiscountController {
 		
 		// If the discount was not created by the user and the user is not an administrator, 
 		// then operation must be forbidden	
-		if(currentUser.getId() != theDiscount.getUserId() && currentUser.getRoleId() != 1) {
+		if(currentUser.getId() != theDiscount.getUserId() && currentUser.getRole().getName() != "administrator") {
 			return "forbidden";
 		}
 		
@@ -130,7 +130,7 @@ public class DiscountController {
 		// If the user is administrator then it must be redirected to the
 		// administrator's discount view.
 		// Otherwise it must be redirected to the client's discount view.
-		if (currentUser.getRoleId() == 1) {
+		if (currentUser.getRole().getName() == "administrator") {
 			return "redirect:/admin/discount-list";
 		} else {
 			return "redirect:/client/discount-list";

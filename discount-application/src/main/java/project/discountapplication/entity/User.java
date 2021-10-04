@@ -1,11 +1,14 @@
 package project.discountapplication.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,27 +39,20 @@ public class User {
 	@Column(name = "last_name")
 	private String lastName;
 
-	@Column(name = "role_id")
-	private Long roleId;
-
-	public Long getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(Long roleId) {
-		this.roleId = roleId;
-	}
-
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST })
+	@JoinColumn(name = "role_id")
+	private Role role;
+	
 	public User() {
 	}
 
-	public User(String username, String password, String email, String firstName, String lastName, Long roleId) {
+	public User(String username, String password, String email, String firstName, String lastName, Role role) {
 		this.username = username;
 		this.password = password;
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.roleId = roleId;
+		this.role = role;
 	}
 
 	public long getId() {
@@ -79,7 +75,6 @@ public class User {
 		return password;
 	}
 
-	// If the new password value was provided, than it must be encoded and save
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -107,15 +102,16 @@ public class User {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	
 
-	// Role pseudo field 
-	public void setRole(String role) throws Exception {
-		roleId = Long.parseLong(role);
+	public Role getRole() {
+		return role;
 	}
 
-	public String getRole() {
-		return "" + roleId;
+	public void setRole(Role role) {
+		this.role = role;
 	}
+
 	
 	// New password pseudo field
 	
@@ -132,9 +128,9 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
-				+ ", firstName=" + firstName + ", lastName=" + lastName + ", roleId=" + roleId + "]";
+				+ ", firstName=" + firstName + ", lastName=" + lastName + ", role=" + role + "]";
 	}
-
 	
-
+	
+	
 }

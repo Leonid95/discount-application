@@ -46,14 +46,7 @@
 					<div class="object-field user-field">Email: ${user.email}</div>
 
 					<div class="object-field user-field">
-						<c:if test="${user.roleId ==  1}">
-	  Role: Administrator
-	  </c:if>
-
-						<c:if test="${user.roleId ==  2}">
-	  Role: Client
-	  </c:if>
-
+					    Role: ${user.role.name}
 					</div>
 
 					<c:url var="updateLink" value="/admin/update-user">
@@ -70,7 +63,9 @@
 					</div>
 
 					<div>
-						<a class="custom-button delete-button" href="${deleteLink}">Delete
+						<a class="custom-button delete-button" 
+						onclick="if(!confirm('Are you sure you want to delete this user?')) return false;"
+						href="${deleteLink}">Delete
 							the user</a>
 					</div>
 
@@ -80,7 +75,7 @@
 
 			<c:if test="${users.size() > 2}">
 				<a class="add-button"
-					href="${pageContext.request.contextPath}/add-user">Add new user</a>
+					href="${pageContext.request.contextPath}/admin/add-user">Add new user</a>
 			</c:if>
 
 		</div>

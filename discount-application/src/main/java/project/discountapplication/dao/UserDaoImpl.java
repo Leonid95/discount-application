@@ -124,7 +124,7 @@ public class UserDaoImpl implements UserDao, UserDetailsService {
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
 
-		Role role = roleDao.findRoleById(user.getRoleId());
+		Role role = roleDao.findRoleById(user.getRole().getId());
 
 		Collection<? extends GrantedAuthority> mappedRole = mapRoleToAuthorities(role);
 

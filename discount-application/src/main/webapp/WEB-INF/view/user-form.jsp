@@ -13,7 +13,10 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+	crossorigin="anonymous">
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
@@ -28,12 +31,13 @@
 
 <body>
 
-<%@ include file="header-admin.jsp"%>
+	<%@ include file="header-admin.jsp"%>
 
 	<div class="pt-4 container main-content">
-		
-		
-		<form:form action="${pageContext.request.contextPath}/admin/save-user" modelAttribute="user" class="custom-form">
+
+
+		<form:form action="${pageContext.request.contextPath}/admin/save-user"
+			modelAttribute="user" class="custom-form">
 
 
 			<c:if test="${not empty usernameUsedError}">
@@ -91,8 +95,11 @@
 				<form:label path="role">Role</form:label>
 
 				<form:select path="role">
-					<form:option value="2">Client</form:option>
-					<form:option value="1">Administrator</form:option>
+					<c:forEach var="role" items="${roles}">
+						<c:set var="isSelected"
+							value="${role.id == user.role.id ? 'selected' : ''}" />
+						<form:option value="${role.id}" selected="${isSelected}">${role.name}</form:option>
+					</c:forEach>
 				</form:select>
 			</div>
 
@@ -105,7 +112,7 @@
 		</form:form>
 
 	</div>
-	
+
 	<%@ include file="footer.jsp"%>
 
 </body>

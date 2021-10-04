@@ -61,7 +61,9 @@
 					</div>
 
 					<div >
-						<a class="custom-button delete-button" href="${deleteLink}">Delete this category</a>
+						<a class="custom-button delete-button" 
+						onclick="if(!confirm('Are you sure you want to delete this category?')) return false;"
+						href="${deleteLink}">Delete this category</a>
 					</div>
 
 				</div>

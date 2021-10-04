@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import project.discountapplication.dao.CategoryDao;
 import project.discountapplication.dao.DiscountDao;
+import project.discountapplication.dao.RoleDao;
 import project.discountapplication.dao.UserDao;
 import project.discountapplication.entity.Category;
 import project.discountapplication.entity.Discount;
@@ -33,6 +34,10 @@ public class AdminController {
 
 	@Autowired
 	CategoryDao categoryDao;
+	
+	
+	@Autowired
+	RoleDao roleDao;
 
 	@GetMapping("/discount-list")
 	public String getDiscounts(@RequestParam(name = "categoryId", required = false) String categoryId, Model theModel) {
@@ -63,6 +68,8 @@ public class AdminController {
 
 	@GetMapping("/add-user")
 	public String addUser(Model theModel) {
+		
+		theModel.addAttribute("roles", roleDao.getAllRoles());
 
 		theModel.addAttribute("user", new User());
 
@@ -71,6 +78,8 @@ public class AdminController {
 
 	@GetMapping("/update-user")
 	public String updateUser(@RequestParam("userId") long userId, HttpSession httpSession, Model theModel) {
+		
+		theModel.addAttribute("roles", roleDao.getAllRoles());
 
 		User theUser = userDao.findById(userId);
 
