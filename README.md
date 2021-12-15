@@ -1,2 +1,2 @@
 # discount-application
-This is a web application where every user can see the information about actual discounts on groceries from different stores.
+This is a web application where every user can see the information about actual discounts on groceries from different stores. Current CRUD application is built on the base of Spring Boot, Spring MVC and Spring Security frameworks. It stores data in PostgreSQL database and comunicates with this database using Hibernate framework. Users can also manipulate discounts using Rest API.
