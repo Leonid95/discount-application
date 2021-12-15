@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import exception.InvalidDiscountException;
 import project.discountapplication.dao.CategoryDao;
 import project.discountapplication.dao.DiscountDao;
 import project.discountapplication.dao.UserDao;
 import project.discountapplication.entity.Category;
 import project.discountapplication.entity.Discount;
 import project.discountapplication.entity.User;
+import project.discountapplication.exception.InvalidDiscountException;
 
 @RestController
 @RequestMapping("/api")

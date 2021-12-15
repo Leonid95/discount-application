@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import exception.DiscountNotFoundException;
-import exception.InvalidDiscountException;
+import project.discountapplication.exception.DiscountNotFoundException;
+import project.discountapplication.exception.InvalidDiscountException;
 
 @ControllerAdvice
 public class RestExceptionHandler {

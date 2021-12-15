@@ -16,9 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import exception.DiscountNotFoundException;
 import javassist.tools.rmi.ObjectNotFoundException;
 import project.discountapplication.entity.Discount;
+import project.discountapplication.exception.DiscountNotFoundException;
 
 @Repository
 public class DiscountDaoImpl implements DiscountDao {
