@@ -2,6 +2,7 @@ package project.discountapplication.dao;
 
 import java.util.Collection;
 
+
 import project.discountapplication.entity.Discount;
 
 public interface DiscountDao {
@@ -19,6 +20,8 @@ public interface DiscountDao {
 	
 	// Check weather title was already used by the discount with another id
 	boolean isTitleUsed(String title, long id);
+	
+	boolean checkOwner(long userId, long discountId);
 
 	void deleteDiscount(long discountID);
 	

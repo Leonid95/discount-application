@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "categories")
 public class Category {
@@ -29,6 +31,7 @@ public class Category {
 
 	@OneToMany(mappedBy = "category", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
 			CascadeType.REFRESH })
+	@JsonIgnore
 	private List<Discount> discounts;
 
 	public Category() {
@@ -71,6 +74,7 @@ public class Category {
 		this.discounts = discounts;
 	}
 
+	@JsonIgnore
 	public List<Discount> getValidDiscounts() {
 		List<Discount> validDiscounts = new ArrayList<>();
 

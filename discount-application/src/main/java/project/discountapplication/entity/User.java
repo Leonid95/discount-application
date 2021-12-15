@@ -128,6 +128,10 @@ public class User {
 	public String getNewPassword() {
 		return "";
 	}
+	
+	public boolean isAdmin() {
+		return (roleId == 1);
+	}
 
 	@Override
 	public String toString() {

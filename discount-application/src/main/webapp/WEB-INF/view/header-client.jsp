@@ -4,7 +4,7 @@
 			<li class="custom-menu-item"><a
 				href="${pageContext.request.contextPath}">Home</a></li>
 			<li class="custom-menu-item"><a
-				href="${pageContext.request.contextPath}/admin/discount-list">All
+				href="${pageContext.request.contextPath}/client/discount-list">All
 					discounts</a></li>
 			<li class="custom-menu-item"><form:form
 					action="${pageContext.request.contextPath}/logout" method="POST">

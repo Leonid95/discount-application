@@ -59,9 +59,11 @@ public class DiscountController {
 
 		User currentUser = userDao.getCurrentUser();
 		
+		long userId = currentUser.getId();
+		
 		// If the discount was not created by the user and the user is not an administrator, 
 		// then operation must be forbidden	
-		if(currentUser.getId() != theDiscount.getUserId() && currentUser.getRoleId() != 1) {
+		if(!discountDao.checkOwner(userId, discountId) && !currentUser.isAdmin()) {
 			return "forbidden";
 		}
 
@@ -103,7 +105,7 @@ public class DiscountController {
 		// If the user is administrator then it must be redirected to the
 		// administrator's discount view.
 		// Otherwise it must be redirected to the client's discount view.
-		if (currentUser.getRoleId() == 1) {
+		if (currentUser.isAdmin()) {
 			return "redirect:/admin/discount-list";
 		} else {
 			return "redirect:/client/discount-list";
@@ -117,9 +119,11 @@ public class DiscountController {
 		
 		User currentUser = userDao.getCurrentUser();
 		
+		long userID = currentUser.getId();
+		
 		// If the discount was not created by the user and the user is not an administrator, 
 		// then operation must be forbidden	
-		if(currentUser.getId() != theDiscount.getUserId() && currentUser.getRoleId() != 1) {
+		if(!discountDao.checkOwner(userID, discountID) && !currentUser.isAdmin()) {
 			return "forbidden";
 		}
 		
@@ -130,7 +134,7 @@ public class DiscountController {
 		// If the user is administrator then it must be redirected to the
 		// administrator's discount view.
 		// Otherwise it must be redirected to the client's discount view.
-		if (currentUser.getRoleId() == 1) {
+		if (currentUser.isAdmin()) {
 			return "redirect:/admin/discount-list";
 		} else {
 			return "redirect:/client/discount-list";

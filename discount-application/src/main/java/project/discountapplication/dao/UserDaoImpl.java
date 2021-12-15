@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -143,11 +144,10 @@ public class UserDaoImpl implements UserDao, UserDetailsService {
 	@Override
 	// This method gets currently logged in user
 	public User getCurrentUser() {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-		org.springframework.security.core.userdetails.User userDetails = (org.springframework.security.core.userdetails.User) SecurityContextHolder
-				.getContext().getAuthentication().getPrincipal();
-
-		String username = userDetails.getUsername();
+		String username = authentication.getName();
 
 		User currentUser = findByUsername(username);
 

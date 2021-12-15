@@ -17,6 +17,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.data.rest.core.annotation.RestResource;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "discounts")
 public class Discount {
@@ -40,7 +45,7 @@ public class Discount {
 	@Column(name = "user_id")
 	private Long userId;
 
-	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST })
+	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinColumn(name = "category_id")
 	private Category category;
 
@@ -153,6 +158,7 @@ public class Discount {
 		}
 	}
 
+	@JsonIgnore
 	public String getStartDateText() {
 		if (this.startDate == null) {
 			return "";
@@ -164,6 +170,7 @@ public class Discount {
 
 	}
 
+	@JsonIgnore
 	public void setEndDateText(String endDateText) {
 		try {
 			this.endDate = new SimpleDateFormat("yyyy-MM-dd").parse(endDateText);

@@ -63,6 +63,13 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 			<version>2.5.2</version>
 		</dependency>
+		
+		<!-- Spring Data Rest -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+			<version>2.6.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>

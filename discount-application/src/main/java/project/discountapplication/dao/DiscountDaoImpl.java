@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import exception.DiscountNotFoundException;
+import javassist.tools.rmi.ObjectNotFoundException;
 import project.discountapplication.entity.Discount;
 
 @Repository
@@ -90,6 +92,10 @@ public class DiscountDaoImpl implements DiscountDao {
 		Session currentSession = entityManager.unwrap(Session.class);
 
 		Discount discount = currentSession.get(Discount.class, id);
+		
+		if(discount == null) {
+			throw new DiscountNotFoundException("Discount with id " + id + " was not found");
+		}
 
 		return discount;
 	}
@@ -142,7 +148,7 @@ public class DiscountDaoImpl implements DiscountDao {
 		// Get the current hibernate session
 				Session currentSession = entityManager.unwrap(Session.class);
 
-				Query<Discount> theQuery = currentSession.createQuery("from Discount WHERE user_id=:uId");
+				Query<Discount> theQuery = currentSession.createQuery("from Discount WHERE userId=:uId");
 				
 				theQuery.setParameter("uId", uId);
 
@@ -155,6 +161,25 @@ public class DiscountDaoImpl implements DiscountDao {
 				}
 
 				return discounts;
+	}
+
+	@Override
+	public boolean checkOwner(long userId, long discountId) {
+		Session currentSession = entityManager.unwrap(Session.class);
+		
+		Query<Long> theQuery = currentSession.createQuery("SELECT userId from Discount WHERE id=:dId");
+		
+		theQuery.setParameter("dId", discountId);
+		
+		long realUserId = 0L;
+		
+		try {
+			realUserId = theQuery.getSingleResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return (userId == realUserId);
 	}
 
 }
